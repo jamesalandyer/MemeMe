@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeVC.swift
 //  MemeMe
 //
 //  Created by James Dyer on 5/8/16.
@@ -24,7 +24,7 @@ struct Meme {
     
 }
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //Outlets
     @IBOutlet weak var memeImageView: UIImageView!
@@ -45,6 +45,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName: -2.0
     ]
+    let defaultTop: String = "TOP"
+    let defaultBottom: String = "BOTTOM"
     
     var currentImage: UIImage!
     var memedImage: UIImage!
@@ -55,12 +57,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         activityButton.enabled = false
         
-        topTextField.delegate = self
-        topTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.textAlignment = NSTextAlignment.Center
-        bottomTextField.delegate = self
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.textAlignment = NSTextAlignment.Center
+        setupTextField(topTextField)
+        setupTextField(bottomTextField)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,17 +79,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     //Actions
     @IBAction func cameraButtonPressed(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        presentViewController(imagePicker, animated: true, completion: nil)
+        presentImagePicker(.Camera)
     }
    
     @IBAction func albumsButtonPressed(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        presentImagePicker(.PhotoLibrary)
     }
     
     @IBAction func activityButtonPressed(sender: AnyObject) {
@@ -139,18 +131,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     //TextField
+    func setupTextField(textField: UITextField) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.Center
+    }
+    
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.text == "TOP" || textField.text == "BOTTOM" {
+        if textField.text == defaultTop || textField.text == defaultBottom {
             textField.text = ""
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.text == "" {
-            if textField.tag == 0 {
-                textField.text = "TOP"
-            } else if textField.tag == 1 {
-                textField.text = "BOTTOM"
+            if textField == topTextField {
+                textField.text = defaultTop
+            } else if textField == bottomTextField {
+                textField.text = defaultBottom
             }
         }
     }
@@ -162,6 +160,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     //ImagePicker
+    func presentImagePicker(chosenSource: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = chosenSource
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         currentImage = image
         memeImageView.image = currentImage
@@ -170,8 +175,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func clearScreen() {
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
+        topTextField.text = defaultTop
+        bottomTextField.text = defaultBottom
         memeImageView.image = UIImage()
         activityButton.enabled = false
     }
