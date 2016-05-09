@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,119 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nha-31-1m2">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="gNu-A1-VbK"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="rzu-ms-JrT"/>
+                                    <barButtonItem systemItem="camera" id="6yh-WM-Mho">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="cameraButtonPressed:" destination="BYZ-38-t0r" id="x76-SN-qwl"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="44" style="plain" systemItem="fixedSpace" id="JP3-jC-AnG"/>
+                                    <barButtonItem title="Albums" id="WPO-gO-ha5">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="albumsButtonPressed:" destination="BYZ-38-t0r" id="UTi-bq-p7v"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="q1x-iS-gxK"/>
+                                </items>
+                                <color key="barTintColor" red="1" green="0.2627450980392157" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9X7-Bm-Iqf">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JgK-o0-Tar"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="action" id="YMp-gV-9ZZ">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="activityButtonPressed:" destination="BYZ-38-t0r" id="Ki5-5q-hzY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VHI-ig-565"/>
+                                    <barButtonItem title="Clear" id="Dvc-uy-8fM">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="clearButtonPressed:" destination="BYZ-38-t0r" id="XU9-zD-iFd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" red="1" green="0.26252467930000001" blue="0.28933735459999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ojw-r0-Smd">
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hm8-gS-Pk0">
+                                <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6aH-fo-7VO"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Xmg-bl-6zs">
+                                <rect key="frame" x="0.0" y="486" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ktt-mN-Yzs"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MemeMe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28Y-1b-FbS">
+                                <rect key="frame" x="257" y="8" width="86" height="28"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="28Y-1b-FbS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="8" id="0Oe-AQ-b4s"/>
+                            <constraint firstItem="9X7-Bm-Iqf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="16i-jb-hYq"/>
+                            <constraint firstAttribute="trailing" secondItem="9X7-Bm-Iqf" secondAttribute="trailing" id="Bsb-a9-lXf"/>
+                            <constraint firstItem="Xmg-bl-6zs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DNf-4h-QMK"/>
+                            <constraint firstAttribute="trailing" secondItem="Ojw-r0-Smd" secondAttribute="trailing" id="IcE-6r-99A"/>
+                            <constraint firstAttribute="trailing" secondItem="Xmg-bl-6zs" secondAttribute="trailing" id="M1W-yb-okz"/>
+                            <constraint firstItem="Nha-31-1m2" firstAttribute="top" secondItem="Xmg-bl-6zs" secondAttribute="bottom" constant="20" id="RUj-Iv-AX0"/>
+                            <constraint firstItem="hm8-gS-Pk0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bZa-eN-P8y"/>
+                            <constraint firstItem="9X7-Bm-Iqf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="c9V-hl-HTL"/>
+                            <constraint firstItem="Ojw-r0-Smd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eRY-J3-Ts5"/>
+                            <constraint firstItem="Nha-31-1m2" firstAttribute="top" secondItem="Ojw-r0-Smd" secondAttribute="bottom" id="fcu-Vv-hfK"/>
+                            <constraint firstAttribute="trailing" secondItem="Nha-31-1m2" secondAttribute="trailing" id="gQV-CA-5pz"/>
+                            <constraint firstItem="Nha-31-1m2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nUT-ts-tKz"/>
+                            <constraint firstItem="hm8-gS-Pk0" firstAttribute="top" secondItem="9X7-Bm-Iqf" secondAttribute="bottom" constant="20" id="pst-9w-T5P"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Nha-31-1m2" secondAttribute="bottom" id="vyY-Vz-GGQ"/>
+                            <constraint firstItem="28Y-1b-FbS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wmd-R6-wAi"/>
+                            <constraint firstAttribute="trailing" secondItem="hm8-gS-Pk0" secondAttribute="trailing" id="x0K-Dk-LvA"/>
+                            <constraint firstItem="Ojw-r0-Smd" firstAttribute="top" secondItem="9X7-Bm-Iqf" secondAttribute="bottom" id="xmb-6h-Sgt"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityButton" destination="YMp-gV-9ZZ" id="YTX-pY-Rj0"/>
+                        <outlet property="albumsButton" destination="WPO-gO-ha5" id="Xwe-TL-NTg"/>
+                        <outlet property="bottomTextField" destination="Xmg-bl-6zs" id="AVT-o0-oQH"/>
+                        <outlet property="bottomToolbar" destination="Nha-31-1m2" id="RDu-kF-fpd"/>
+                        <outlet property="cameraButton" destination="6yh-WM-Mho" id="SCz-dp-eNj"/>
+                        <outlet property="clearButton" destination="Dvc-uy-8fM" id="8j0-5G-rMV"/>
+                        <outlet property="memeImageView" destination="Ojw-r0-Smd" id="JfC-2R-pl5"/>
+                        <outlet property="mememeLabel" destination="28Y-1b-FbS" id="7HS-2q-M7O"/>
+                        <outlet property="topTextField" destination="hm8-gS-Pk0" id="2HR-oo-Gab"/>
+                        <outlet property="topToolbar" destination="9X7-Bm-Iqf" id="5lL-U4-R0e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="600" y="508"/>
         </scene>
     </scenes>
 </document>
