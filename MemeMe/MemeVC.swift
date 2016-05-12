@@ -154,8 +154,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        topTextField.resignFirstResponder()
-        bottomTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
