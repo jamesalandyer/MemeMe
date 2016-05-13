@@ -14,7 +14,9 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     //Properties
-    var memeArray = [Meme]()
+    var memeArray: [Meme] {
+        return DataService.ds.memes
+    }
     var selectedMeme: Meme!
 
     //MARK: - Stack
@@ -30,10 +32,9 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if DataService.ds.memes.count == 0 {
+        if memeArray.count == 0 {
             showMemeVC()
         }
-        memeArray = DataService.ds.memes
         tableView.reloadData()
     }
     
@@ -82,6 +83,13 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedMeme = memeArray[indexPath.row]
         performSegueWithIdentifier("tableDetail", sender: nil)
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            DataService.ds.removeMeme(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+        }
     }
     
     //MARK: - Segues

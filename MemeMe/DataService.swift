@@ -29,4 +29,13 @@ class DataService {
         _memes.append(meme)
     }
     
+    /**
+     Deletes the meme in the current meme array.
+     
+     - Parameter memeIndex: The index of the meme you want to delete.
+     */
+    func removeMeme(memeIndex: Int) {
+        _memes.removeAtIndex(memeIndex)
+    }
+    
 }

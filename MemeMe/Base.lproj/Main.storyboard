@@ -91,10 +91,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUo-Bf-UZT">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -107,8 +103,6 @@
                             <constraint firstItem="Nha-31-1m2" firstAttribute="top" secondItem="Xmg-bl-6zs" secondAttribute="bottom" constant="20" id="RUj-Iv-AX0"/>
                             <constraint firstItem="hm8-gS-Pk0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bZa-eN-P8y"/>
                             <constraint firstItem="9X7-Bm-Iqf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="c9V-hl-HTL"/>
-                            <constraint firstItem="SUo-Bf-UZT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cfu-SR-5EY"/>
-                            <constraint firstItem="SUo-Bf-UZT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dhw-zg-tij"/>
                             <constraint firstItem="Ojw-r0-Smd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eRY-J3-Ts5"/>
                             <constraint firstItem="Nha-31-1m2" firstAttribute="top" secondItem="Ojw-r0-Smd" secondAttribute="bottom" id="fcu-Vv-hfK"/>
                             <constraint firstAttribute="trailing" secondItem="Nha-31-1m2" secondAttribute="trailing" id="gQV-CA-5pz"/>
