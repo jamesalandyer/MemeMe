@@ -21,7 +21,6 @@ struct Meme {
         self.originalImage = originalImage
         self.memedImage = memedImage
     }
-    
 }
 
 class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -33,7 +32,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var albumsButton: UIBarButtonItem!
     @IBOutlet weak var activityButton: UIBarButtonItem!
-    @IBOutlet weak var clearButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var topToolbar: UIToolbar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
     @IBOutlet weak var mememeLabel: UILabel!
@@ -50,7 +49,8 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     var currentImage: UIImage!
     var memedImage: UIImage!
-    var memes = [Meme]()
+    
+    let memesArray = DataService.ds.memes
     
     //MARK: - Stack
 
@@ -65,6 +65,9 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if memesArray.count == 0 {
+            cancelButton.enabled = false
+        }
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         subscribeToKeyboardNotifications()
     }
@@ -94,11 +97,12 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         presentViewController(shareVC, animated: true, completion: nil)
         shareVC.completionWithItemsHandler = { activity, success, items, error in
             self.save()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
-    @IBAction func clearButtonPressed(sender: AnyObject) {
-        clearScreen()
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     //MARK: - Notifications
@@ -205,16 +209,6 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    /**
-     Resets the screen back to its starting state.
-     */
-    func clearScreen() {
-        topTextField.text = defaultTop
-        bottomTextField.text = defaultBottom
-        memeImageView.image = UIImage()
-        activityButton.enabled = false
-    }
-    
     //MARK: - Final Image
     
     /**
@@ -240,7 +234,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
      */
     func save() {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: currentImage, memedImage: memedImage)
-        memes.append(meme)
+        DataService.ds.saveMemes(meme)
     }
     
     /**

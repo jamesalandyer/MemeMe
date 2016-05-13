@@ -12,4 +12,21 @@ class DataService {
     
     static let ds = DataService()
     
+    private var _memes = [Meme]()
+    
+    var memes: [Meme] {
+        get {
+            return _memes
+        }
+    }
+    
+    /**
+     Saves the meme to the current meme array.
+     
+     - Parameter meme: The meme you want to save.
+    */
+    func saveMemes(meme: Meme) {
+        _memes.append(meme)
+    }
+    
 }
