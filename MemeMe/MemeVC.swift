@@ -51,6 +51,8 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     var currentImage: UIImage!
     var memedImage: UIImage!
     var memes = [Meme]()
+    
+    //MARK: - Stack
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +78,8 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         return true
     }
     
+    //MARK: - IBActions
     
-    //Actions
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         presentImagePicker(.Camera)
     }
@@ -99,50 +101,78 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         clearScreen()
     }
     
-    //Methods
+    //MARK: - Notifications
     
-    //Notifications
+    /**
+     Subcribe to keyboard will show and hide notifications.
+    */
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /**
+     Unsubcribe to keyboard will show and hide notifications.
+     */
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /**
+     Alter screen for keyboard showing.
+     
+     - Parameter notification: KeyboardWillShow notification.
+     */
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.editing {
             view.frame.origin.y -= getKeyboardHeight(notification)
         }
     }
     
+    /**
+     Alter screen for keyboard hiding.
+     
+     - Parameter notification: KeyboardWillHide notification.
+     */
     func keyboardWillHide(notification: NSNotification) {
         if bottomTextField.editing {
             view.frame.origin.y += getKeyboardHeight(notification)
         }
     }
     
+    /**
+     Get the keyboard height for the user.
+     
+     - Parameter notification: Notification.
+     */
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.CGRectValue().height
     }
     
-    //TextField
+    //MARK: - TextField
+    
+    /**
+     Sets up the textfields to be used.
+     
+     - Parameter textField: The textfield being setup.
+     */
     func setupTextField(textField: UITextField) {
         textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = NSTextAlignment.Center
     }
     
+    //Clear textfield when editing begins.
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.text == defaultTop || textField.text == defaultBottom {
             textField.text = ""
         }
     }
     
+    //If empty set the texfield to the default text.
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.text == "" {
             if textField == topTextField {
@@ -153,12 +183,14 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         }
     }
     
+    //Dismiss keyboard when enter is hit.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    //ImagePicker
+    //MARK: - ImagePicker
+    
     func presentImagePicker(chosenSource: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -173,6 +205,9 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    /**
+     Resets the screen back to its starting state.
+     */
     func clearScreen() {
         topTextField.text = defaultTop
         bottomTextField.text = defaultBottom
@@ -180,7 +215,13 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         activityButton.enabled = false
     }
     
-    //Final Image
+    //MARK: - Final Image
+    
+    /**
+     Takes a capture of the screen without the toolbars.
+     
+     - Returns: A new image with the text in it.
+     */
     func generateMemedImage() -> UIImage {
         toolbarHide(true)
         
@@ -194,11 +235,19 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         return memedImage
     }
     
+    /**
+     Saves the meme as a Meme object and appends it to an array.
+     */
     func save() {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: currentImage, memedImage: memedImage)
         memes.append(meme)
     }
     
+    /**
+     Toggles the toolbar to hide or not hide.
+     
+     - Parameter state: The state of the buttons to change to.
+     */
     func toolbarHide(state: Bool) {
         mememeLabel.hidden = state
         topToolbar.hidden = state
