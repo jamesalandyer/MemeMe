@@ -44,8 +44,8 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName: -2.0
     ]
-    let defaultTop: String = "TOP"
-    let defaultBottom: String = "BOTTOM"
+    var defaultTop: String = "TOP"
+    var defaultBottom: String = "BOTTOM"
     
     var currentImage: UIImage!
     var memedImage: UIImage!
@@ -65,6 +65,9 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if currentImage != nil {
+            setImage()
+        }
         if memesArray.count == 0 {
             cancelButton.enabled = false
         }
@@ -96,8 +99,10 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         let shareVC = UIActivityViewController(activityItems: [image], applicationActivities: [])
         presentViewController(shareVC, animated: true, completion: nil)
         shareVC.completionWithItemsHandler = { activity, success, items, error in
-            self.save()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            if success == true {
+                self.save()
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
     }
     
@@ -204,9 +209,16 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         currentImage = image
+        setImage()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    /**
+     Sets the image for the meme.
+    */
+    func setImage() {
         memeImageView.image = currentImage
         activityButton.enabled = true
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     //MARK: - Final Image

@@ -164,6 +164,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Yb-rF-UKH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="1" green="0.26274509800000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -319,7 +320,7 @@
         <!--DetailVC-->
         <scene sceneID="l2Y-5B-cq0">
             <objects>
-                <viewController id="rGR-gh-3cd" customClass="DetailVC" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="rGR-gh-3cd" customClass="DetailVC" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ihT-kr-3WP"/>
                         <viewControllerLayoutGuide type="bottom" id="GTH-rx-VaA"/>
@@ -327,8 +328,23 @@
                     <view key="view" contentMode="scaleToFill" id="H5I-Qg-Is4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="042-IB-ZW3">
+                                <rect key="frame" x="20" y="72" width="560" height="471"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="042-IB-ZW3" firstAttribute="top" secondItem="ihT-kr-3WP" secondAttribute="bottom" constant="8" id="QO4-SH-l1N"/>
+                            <constraint firstItem="042-IB-ZW3" firstAttribute="trailing" secondItem="H5I-Qg-Is4" secondAttribute="trailingMargin" id="do5-tz-zTQ"/>
+                            <constraint firstItem="GTH-rx-VaA" firstAttribute="top" secondItem="042-IB-ZW3" secondAttribute="bottom" constant="8" id="mjA-2Y-ajB"/>
+                            <constraint firstItem="042-IB-ZW3" firstAttribute="leading" secondItem="H5I-Qg-Is4" secondAttribute="leadingMargin" id="mtu-eR-02s"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="selectedImageView" destination="042-IB-ZW3" id="QSw-vv-8qK"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="editMeme" id="vy4-2p-vAc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dxo-ZX-uro" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -363,20 +379,7 @@
                     <view key="view" contentMode="scaleToFill" id="h7M-Pl-dgN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bX-sM-6vf">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="rGR-gh-3cd" kind="show" identifier="collectionDetail" id="EO2-nb-x9A"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="0bX-sM-6vf" firstAttribute="centerY" secondItem="h7M-Pl-dgN" secondAttribute="centerY" id="uwa-Lr-vaz"/>
-                            <constraint firstItem="0bX-sM-6vf" firstAttribute="centerX" secondItem="h7M-Pl-dgN" secondAttribute="centerX" id="vE8-xi-Xhb"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Psm-eS-8Ca"/>
                 </viewController>
@@ -392,6 +395,6 @@
         <image name="table_selected" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="K4Z-2a-vgM"/>
+        <segue reference="dXD-Ve-gzW"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -73,7 +73,6 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell") as? MemeTableCell {
             cell.configureCell(meme)
-            print(meme)
             return cell
         } else {
             return MemeTableCell()
