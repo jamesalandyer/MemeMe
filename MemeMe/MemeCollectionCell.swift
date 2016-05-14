@@ -1,5 +1,5 @@
 //
-//  MemeTableCell.swift
+//  MemeCollectionCell.swift
 //  MemeMe
 //
 //  Created by James Dyer on 5/13/16.
@@ -8,20 +8,18 @@
 
 import UIKit
 
-class MemeTableCell: UITableViewCell {
+class MemeCollectionCell: UICollectionViewCell {
     
     //Outlets
     @IBOutlet weak var memeImage: UIImageView!
-    @IBOutlet weak var topTextLabel: UILabel!
-    @IBOutlet weak var bottomTextLabel: UILabel!
     @IBOutlet weak var topImageLabel: UILabel!
     @IBOutlet weak var bottomImageLabel: UILabel!
     
     /**
-    Configures the cell for the tableview.
+     Configures the cell for the collectionview.
      
      - Parameter meme: The meme used for that cell.
-    */
+     */
     func configureCell(meme: Meme) {
         let top = meme.topText
         let bottom = meme.bottomText
@@ -30,8 +28,6 @@ class MemeTableCell: UITableViewCell {
         createStyledText(bottom, label: bottomImageLabel)
         
         memeImage.image = meme.originalImage
-        topTextLabel.text = top
-        bottomTextLabel.text = bottom
     }
-
+    
 }

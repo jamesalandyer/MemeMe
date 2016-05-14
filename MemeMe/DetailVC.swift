@@ -39,6 +39,9 @@ class DetailVC: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    /**
+     Shows you the meme to edit.
+     */
     func editMeme() {
         performSegueWithIdentifier("editMeme", sender: nil)
     }
