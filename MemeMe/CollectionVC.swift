@@ -31,6 +31,9 @@ class CollectionVC: UIViewController, UICollectionViewDelegate, UICollectionView
     }
     
     override func viewDidAppear(animated: Bool) {
+        if memeArray.count == 0 {
+            showGridMemeVC()
+        }
         collectionView.reloadData()
     }
     
