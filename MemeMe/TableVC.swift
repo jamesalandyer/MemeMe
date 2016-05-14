@@ -15,7 +15,7 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Properties
     var memeArray: [Meme] {
-        return DataService.ds.memes
+        return DataService.sharedInstance.memes
     }
     var selectedMeme: Meme!
 
@@ -29,12 +29,10 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         indentTabs()
         establishNavBar()
+        showMemeVC()
     }
     
     override func viewDidAppear(animated: Bool) {
-        if memeArray.count == 0 {
-            showMemeVC()
-        }
         tableView.reloadData()
     }
     
@@ -87,7 +85,7 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            DataService.ds.removeMeme(indexPath.row)
+            DataService.sharedInstance.removeMeme(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
         }
     }

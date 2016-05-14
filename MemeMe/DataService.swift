@@ -10,7 +10,7 @@ import Foundation
 
 class DataService {
     
-    static let ds = DataService()
+    static let sharedInstance = DataService()
     
     private var _memes = [Meme]()
     

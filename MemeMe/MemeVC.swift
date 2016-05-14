@@ -8,21 +8,6 @@
 
 import UIKit
 
-struct Meme {
-    
-    var topText: String!
-    var bottomText: String!
-    var originalImage: UIImage!
-    var memedImage: UIImage!
-    
-    init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
-        self.topText = topText
-        self.bottomText = bottomText
-        self.originalImage = originalImage
-        self.memedImage = memedImage
-    }
-}
-
 class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //Outlets
@@ -46,11 +31,13 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     ]
     var defaultTop: String = "TOP"
     var defaultBottom: String = "BOTTOM"
+    var editTop: String?
+    var editBottom: String?
     
     var currentImage: UIImage!
     var memedImage: UIImage!
     
-    let memesArray = DataService.ds.memes
+    let memesArray = DataService.sharedInstance.memes
     
     //MARK: - Stack
 
@@ -64,12 +51,12 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         if currentImage != nil {
             setImage()
-        }
-        if memesArray.count == 0 {
-            cancelButton.enabled = false
+            if let top = editTop, let bottom = editBottom {
+                topTextField.text = top
+                bottomTextField.text = bottom
+            }
         }
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         subscribeToKeyboardNotifications()
@@ -99,7 +86,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         let shareVC = UIActivityViewController(activityItems: [image], applicationActivities: [])
         presentViewController(shareVC, animated: true, completion: nil)
         shareVC.completionWithItemsHandler = { activity, success, items, error in
-            if success == true {
+            if success {
                 self.save()
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -146,7 +133,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
      */
     func keyboardWillHide(notification: NSNotification) {
         if bottomTextField.editing {
-            view.frame.origin.y += getKeyboardHeight(notification)
+            view.frame.origin.y = 0
         }
     }
     
@@ -246,7 +233,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
      */
     func save() {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: currentImage, memedImage: memedImage)
-        DataService.ds.saveMemes(meme)
+        DataService.sharedInstance.saveMemes(meme)
     }
     
     /**

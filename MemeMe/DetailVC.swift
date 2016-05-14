@@ -49,8 +49,8 @@ class DetailVC: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "editMeme" {
             if let memeVC = segue.destinationViewController as? MemeVC {
-                memeVC.defaultTop = selectedMeme.topText
-                memeVC.defaultBottom = selectedMeme.bottomText
+                memeVC.editTop = selectedMeme.topText
+                memeVC.editBottom = selectedMeme.bottomText
                 memeVC.currentImage = selectedMeme.originalImage
             }
         }

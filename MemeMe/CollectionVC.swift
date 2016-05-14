@@ -16,7 +16,7 @@ class CollectionVC: UIViewController, UICollectionViewDelegate, UICollectionView
     
     //Properties
     var memeArray: [Meme] {
-        return DataService.ds.memes
+        return DataService.sharedInstance.memes
     }
     var selectedMeme: Meme!
     
@@ -31,9 +31,6 @@ class CollectionVC: UIViewController, UICollectionViewDelegate, UICollectionView
     }
     
     override func viewDidAppear(animated: Bool) {
-        if memeArray.count == 0 {
-            showGridMemeVC()
-        }
         collectionView.reloadData()
     }
     
