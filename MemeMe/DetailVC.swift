@@ -20,7 +20,7 @@ class DetailVC: UIViewController {
         establishNavBar()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         selectedImageView.image = selectedMeme.memedImage
     }
     

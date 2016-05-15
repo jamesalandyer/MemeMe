@@ -122,7 +122,7 @@ class MemeVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
      */
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.editing {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = getKeyboardHeight(notification) * -1
         }
     }
     
